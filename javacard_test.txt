@@ -1,0 +1,22 @@
+// test my applet
+establish_context
+enable_trace
+enable_timer
+card_connect
+// select
+send_apdu -sc 0 -APDU 00A40400080102030405060809 // select
+send_apdu -sc 0 -APDU 802000000412345677 // wrong pin
+send_apdu -sc 0 -APDU 802000000412345678 // correct pin
+send_apdu -sc 0 -APDU 900000000000 // wrong cla
+send_apdu -sc 0 -APDU 800300000000 // wrong ins
+send_apdu -sc 0 -APDU 80010000210101010101010101010101010101010101010101017f // too long body
+send_apdu -sc 0 -APDU 800000000003 // return my name
+send_apdu -sc 0 -APDU 803000000301020314 // receive sequence and return SHA-1
+send_apdu -sc 0 -APDU 803200000014 // return SHA-1 of name
+send_apdu -sc 0 -APDU 80010000030102027f
+send_apdu -sc 0 -APDU 800200000003
+send_apdu -sc 0 -APDU 800200000004 // wrong expected length
+//...
+ 
+card_disconnect
+release_context
